@@ -1,7 +1,6 @@
 package com.synthapp.embeddedproject.com.repo;
 
 import com.synthapp.embeddedproject.com.domain.Store;
-import com.synthapp.embeddedproject.com.domain.StoreNotBiDirectional;
 import java.util.Optional;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,7 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Transactional
 @Rollback(value = true)
 @WebAppConfiguration
-public class StoreRepositoryNotBidirectionalIT1 {
+public class StoreRepositoryTest {
    
     private static final String TEST_STORE = "Pet Store";
     
@@ -45,7 +44,7 @@ public class StoreRepositoryNotBidirectionalIT1 {
     }
     
     @Autowired
-    private StoreNotBiDirectionalRepository storeRepo;
+    private StoreRepository storeRepo;
     
     @Test
     public void testConstruction()
@@ -59,7 +58,7 @@ public class StoreRepositoryNotBidirectionalIT1 {
     @Test
     public void testFindByName() 
     {
-        Optional<StoreNotBiDirectional> store = storeRepo.findFirstByName(TEST_STORE);
+        Optional<Store> store = storeRepo.findFirstByName(TEST_STORE);
         assertTrue(store.isPresent());
         assertEquals(store.get().getName(), TEST_STORE);
     }
@@ -67,7 +66,7 @@ public class StoreRepositoryNotBidirectionalIT1 {
     
     @Test
     public void restGetStoreProductsEmbedded() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/storeNoBiDir"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/store"))
                 .andExpect(status().isOk()).andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
     }
