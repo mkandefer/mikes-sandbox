@@ -1,5 +1,6 @@
 package com.synthapp.embeddedproject.com.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,25 +21,15 @@ import lombok.ToString;
 @Table(name = "store")
 @EqualsAndHashCode(exclude="categories", callSuper = true)
 @ToString(exclude="categories", callSuper = true)
-public class Store extends BaseEntity {
+public class StoreNotBiDirectional extends BaseEntity {
 
     @Getter
     @Setter
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = ProductCategory.class, cascade = CascadeType.ALL, mappedBy = "store")
-    @Getter
-    private List<ProductCategory> categories = new ArrayList<>();
-
-    public void setCategories(List<ProductCategory> categories) {
-        for (ProductCategory category : categories) {
-            if (category.getStore() == null || !category.getStore().equals(this)) {
-                category.setStore(this);
-            }
-        }
-        this.categories = categories;
-
-    }
-    
+    @OneToMany(targetEntity = ProductCategoryNotBiDirectional.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="store_id", referencedColumnName="id")
+    @Getter @Setter
+    private List<ProductCategoryNotBiDirectional> categories = new ArrayList<>(); 
 }
