@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 
-@RepositoryRestResource(collectionResourceRel = "productCategory", path = "productCategory")
+@RepositoryRestResource(collectionResourceRel = "productCategory", path = "productCategory", excerptProjection = InlineChildren.class)
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long>, JpaSpecificationExecutor<ProductCategory> {    
     ProductCategory findById(@Param("id") Long id);
     List<ProductCategory> findByName(@Param("name") String name);

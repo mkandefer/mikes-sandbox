@@ -30,45 +30,62 @@ import org.springframework.web.context.WebApplicationContext;
 @Rollback(value = true)
 @WebAppConfiguration
 public class StoreRepositoryNotBidirectionalTest {
-   
+
     private static final String TEST_STORE = "Pet Store";
-    
+
     @Autowired
     private WebApplicationContext webApplicationContext;
-    
+
     protected MockMvc mockMvc;
-    
+
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
-    
+
     @Autowired
     private StoreNotBiDirectionalRepository storeRepo;
-    
+
     @Test
-    public void testConstruction()
-    {
+    public void testConstruction() {
         assertNotNull("Web application context is null", webApplicationContext);
         assertNotNull("Store repo is null", storeRepo);
         assertFalse("Database was not populated", storeRepo.findAll().isEmpty());
     }
-   
-    
+
     @Test
-    public void testFindByName() 
-    {
+    public void testFindByName() {
         Optional<StoreNotBiDirectional> store = storeRepo.findFirstByName(TEST_STORE);
         assertTrue(store.isPresent());
         assertEquals(store.get().getName(), TEST_STORE);
     }
-    
-    
+
     @Test
-    public void restGetStoreProductsEmbedded() throws Exception {
+    public void restGetStoreProductsEmbeddedWithoutProjection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/storeNoBiDir"))
                 .andExpect(status().isOk()).andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
-   
+
+    @Test
+    public void restGetStoreProductsEmbeddedWithProjection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/storeNoBiDir?projection=inlineCategoriesNoBiDir"))
+                .andExpect(status().isOk()).andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void restGetProductsOnlyWithoutProjection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/productCategoryNoBiDir"))
+                .andExpect(status().isOk()).andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void restGetProductsOnlyWithProjection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/productCategoryNoBiDir?projection=inlineChildrenNoBiDir"))
+                .andExpect(status().isOk()).andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
 }
