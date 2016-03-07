@@ -17,7 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager",
-        basePackages = {"com.synthapp.embeddedproject.com.repo"})
+        basePackages = {"com.synthapp.embeddedproject.repo"})
 public class AppConfig {
 
     @Bean(name = "entityManagerFactory")
@@ -25,7 +25,7 @@ public class AppConfig {
         long startTime = System.nanoTime();
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setDataSource(dataSource());
-        lcemfb.setPackagesToScan("com.synthapp.embeddedproject.com.domain");
+        lcemfb.setPackagesToScan("com.synthapp.embeddedproject.domain");
 
         lcemfb.setJpaVendorAdapter(jpaVendorAdapter());
 
