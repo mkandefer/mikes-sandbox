@@ -67,6 +67,7 @@ public class StoreRepositoryNotBidirectionalTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
+    /*
     @Test
     public void restGetStoreProductsEmbeddedWithProjection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/storeNoBiDir?projection=inlineCategoriesNoBiDir"))
@@ -87,5 +88,5 @@ public class StoreRepositoryNotBidirectionalTest {
                 .andExpect(status().isOk()).andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
-
+    */
 }

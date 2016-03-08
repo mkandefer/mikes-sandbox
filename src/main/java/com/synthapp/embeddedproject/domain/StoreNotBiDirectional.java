@@ -1,6 +1,5 @@
 package com.synthapp.embeddedproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 import javax.persistence.Column;

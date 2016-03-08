@@ -1,6 +1,5 @@
 package com.synthapp.embeddedproject.repo;
 
-import com.synthapp.embeddedproject.domain.Store;
 import com.synthapp.embeddedproject.domain.StoreNotBiDirectional;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

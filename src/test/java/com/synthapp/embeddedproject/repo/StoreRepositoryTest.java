@@ -63,19 +63,7 @@ public class StoreRepositoryTest {
         assertEquals(store.get().getName(), TEST_STORE);
     }
     
-    /*
-        Test attempting to retrieve from the top level store. With Inline projectionn. This doens't error, but doens't product the desired result.
-    */
-    @Test
-    public void restGetStoreProductsEmbeddedWithProjection() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/store?projection=inlineCategories"))
-                .andExpect(status().isOk()).andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
-    }
     
-    /* 
-        Without the projection this fails.
-    */
     @Test
     public void restGetStoreProductsEmbeddedWithoutProjection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/store"))
@@ -83,10 +71,15 @@ public class StoreRepositoryTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
     }
     
+    /*
     
-     /*
-        Test attempting to retrieve from the top level store. With Inline projectionn. This doens't error, but doens't product the desired result.
-    */
+    @Test
+    public void restGetStoreProductsEmbeddedWithProjection() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/store?projection=inlineCategories"))
+                .andExpect(status().isOk()).andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
+    }
+    
     @Test
     public void restGetProductsOnlyWithProjection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/productCategory?projection=inlineChildren"))
@@ -94,14 +87,11 @@ public class StoreRepositoryTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
     }
     
-    /* 
-        Without the projection this fails.
-    */
     @Test
     public void restGetProductsOnlyWithoutProjection() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/synthapp/api/productCategory"))
                 .andExpect(status().isOk()).andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));  
     }
-   
+   */
 }
