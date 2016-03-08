@@ -9,5 +9,5 @@ insert into product_category(name, parent, store_id) values ('Cat', (select top 
 insert into product_category(name, parent, store_id) values ('Shiba', (select top 1 id from product_category where name = 'Dog'), null);
 insert into product_category(name, parent, store_id) values ('Husky', (select top 1 id from product_category where name = 'Dog'), null);
 
-insert into product_category(name, parent, store_id) values ('Red Shiba', (select top 1 id from product_category where name = 'Siba'), null);
+insert into product_category(name, parent, store_id) values ('Red Shiba', (select top 1 id from product_category where name = 'Shiba'), null);
 insert into product_category(name, parent, store_id) values ('Black and Tan Shiba', (select top 1 id from product_category where name = 'Shiba'), null);
